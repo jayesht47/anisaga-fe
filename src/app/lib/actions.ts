@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { FormSchema, FormState } from "./definitions";
 import { encrypt } from "./session-management";
 import { registerUser, loginUser } from "./user-apis";
+import { redirect } from "next/navigation";
 
 export async function signup(state: FormState, formData: FormData) {
   const validatedFields = FormSchema.safeParse({
@@ -75,4 +76,5 @@ export async function login(state: FormState, formData: FormData) {
       path: "/",
     }
   );
+  redirect("/dashboard")
 }

@@ -48,3 +48,8 @@ export async function createSession(
     path: "/",
   });
 }
+
+export async function deleteSession() {
+  const cookieStore = await cookies()
+  cookieStore.delete('session')
+}
