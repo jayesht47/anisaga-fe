@@ -1,10 +1,13 @@
 "use client";
 
-import { signup } from "@/app/libs/actions";
+import { signup } from "@/app/lib/actions";
 import Button from "../header/button";
 import { useActionState } from "react";
 
 export default function SignupForm() {
+  console.log(
+    `typeof window === 'undefined' is ${typeof window === "undefined"}`
+  );
   const [state, action] = useActionState(signup, undefined);
   return (
     <form className="flex w-full" action={action}>

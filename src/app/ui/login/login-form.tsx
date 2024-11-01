@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Button from "../header/button";
 
-import { login } from "@/app/libs/actions";
+import { login } from "@/app/lib/actions";
 import { useActionState } from "react";
 
 export default function LoginForm() {
