@@ -1,4 +1,4 @@
-"user server";
+import "server-only";
 import { AuthResponse, User } from "./definitions";
 
 export const registerUser = async (user: User) => {
