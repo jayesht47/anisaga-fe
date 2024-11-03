@@ -1,7 +1,5 @@
+import Dashboard from "../ui/dashboard/dashboard";
+
 export default function Page() {
-  return(
-    <div>
-      This is userDashboard!
-    </div>
-  )
+  return <Dashboard />;
 }
