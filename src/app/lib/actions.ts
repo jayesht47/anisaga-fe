@@ -1,7 +1,8 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { FormSchema, FormState } from "./definitions";
-import { createSession, deleteSession } from "./session-management";
+import { createSession, decrypt, deleteSession } from "./session-management";
 import { registerUser, loginUser } from "./user-apis";
 import { redirect } from "next/navigation";
 
@@ -52,3 +53,9 @@ export async function logout() {
   deleteSession();
   redirect("/login");
 }
+
+export const isLoggedIn = async () => {
+  const cookie = (await cookies()).get("session")?.value;
+  const session = await decrypt(cookie);
+  return !!session;
+};

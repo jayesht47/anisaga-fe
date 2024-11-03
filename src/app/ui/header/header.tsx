@@ -3,9 +3,12 @@
 import { useRouter } from "next/navigation";
 import Button from "./button";
 import { logout } from "@/app/lib/actions";
+import { useContext } from "react";
+import { AuthContext } from "@/app/lib/auth-provider";
 
 export default function Header() {
   const router = useRouter();
+  const { authState } = useContext(AuthContext);
 
   const loginClickHandler = () => {
     router.push("/login");
@@ -31,20 +34,24 @@ export default function Header() {
           >
             Sign up
           </Button>
-          <Button
-            className="m-6 text-2xl"
-            type="button"
-            onClick={loginClickHandler}
-          >
-            Login
-          </Button>
-          <Button
-            className="m-6 text-2xl"
-            type="button"
-            onClick={logoutClickHandler}
-          >
-            Logout
-          </Button>
+          {!authState && (
+            <Button
+              className="m-6 text-2xl"
+              type="button"
+              onClick={loginClickHandler}
+            >
+              Login
+            </Button>
+          )}
+          {authState && (
+            <Button
+              className="m-6 text-2xl"
+              type="button"
+              onClick={logoutClickHandler}
+            >
+              Logout
+            </Button>
+          )}
         </div>
       </div>
     </header>
