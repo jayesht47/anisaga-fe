@@ -1,8 +1,7 @@
 "use server";
 
-import { cookies } from "next/headers";
 import { FormSchema, FormState } from "./definitions";
-import { encrypt } from "./session-management";
+import { createSession, deleteSession } from "./session-management";
 import { registerUser, loginUser } from "./user-apis";
 import { redirect } from "next/navigation";
 
@@ -23,22 +22,8 @@ export async function signup(state: FormState, formData: FormData) {
     console.error("token cannot be null not creating session");
     return;
   }
-  const expiresAt = new Date(Date.now() + 3 * 60 * 60 * 1000); // basically valid upto 3 hours from now
-  (await cookies()).set(
-    "session",
-    await encrypt({
-      userName: validatedFields.data.userName,
-      expiresAt: expiresAt,
-      token: respObj?.token,
-    }),
-    {
-      httpOnly: true,
-      secure: true,
-      expires: expiresAt,
-      sameSite: "lax",
-      path: "/",
-    }
-  );
+  await createSession(validatedFields.data.userName, respObj?.token);
+  redirect("/dashboard");
 }
 
 export async function login(state: FormState, formData: FormData) {
@@ -54,27 +39,16 @@ export async function login(state: FormState, formData: FormData) {
   }
   console.info("validaion sucess calling API");
   const respObj = await loginUser(validatedFields.data);
-  // createSession(validatedFields.data.userName, loginRespObj?.token);
 
   if (respObj?.token === undefined) {
     console.error("token cannot be null not creating session");
     return;
   }
-  const expiresAt = new Date(Date.now() + 3 * 60 * 60 * 1000); // basically valid upto 3 hours from now
-  (await cookies()).set(
-    "session",
-    await encrypt({
-      userName: validatedFields.data.userName,
-      expiresAt: expiresAt,
-      token: respObj?.token,
-    }),
-    {
-      httpOnly: true,
-      secure: true,
-      expires: expiresAt,
-      sameSite: "lax",
-      path: "/",
-    }
-  );
-  redirect("/dashboard")
+  await createSession(validatedFields.data.userName, respObj?.token);
+  redirect("/dashboard");
+}
+
+export async function logout() {
+  deleteSession();
+  redirect("/login");
 }

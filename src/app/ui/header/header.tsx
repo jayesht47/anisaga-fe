@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Button from "./button";
+import { logout } from "@/app/lib/actions";
 
 export default function Header() {
   const router = useRouter();
@@ -10,8 +11,12 @@ export default function Header() {
     router.push("/login");
   };
 
-  const SignupClickHandler = () => {
+  const signupClickHandler = () => {
     router.push("/signup");
+  };
+
+  const logoutClickHandler = () => {
+    logout();
   };
 
   return (
@@ -22,7 +27,7 @@ export default function Header() {
           <Button
             className="m-6 text-2xl"
             type="button"
-            onClick={SignupClickHandler}
+            onClick={signupClickHandler}
           >
             Sign up
           </Button>
@@ -32,6 +37,13 @@ export default function Header() {
             onClick={loginClickHandler}
           >
             Login
+          </Button>
+          <Button
+            className="m-6 text-2xl"
+            type="button"
+            onClick={logoutClickHandler}
+          >
+            Logout
           </Button>
         </div>
       </div>
