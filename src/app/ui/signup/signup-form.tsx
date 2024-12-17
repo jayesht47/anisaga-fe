@@ -3,6 +3,7 @@
 import { signup } from "@/app/lib/actions";
 import Button from "../header/button";
 import { useActionState } from "react";
+import Link from "next/link";
 
 export default function SignupForm() {
   console.log(
@@ -13,6 +14,12 @@ export default function SignupForm() {
     <form className="flex w-full" action={action}>
       <div className="w-3/12 p-4 rounded-xl m-auto mt-20 bg-[#191919] shadow-blue-500/50">
         <h1 className="text-3xl text-center mb-10 antialiased">Sign up</h1>
+        <div className="text-center">
+          Already have an account?{" "}
+          <Link href={"/login"} className="text-teal-600">
+            Login
+          </Link>
+        </div>
         <div className="w-full text-center my-5 text-xl">
           <input
             type="text"
