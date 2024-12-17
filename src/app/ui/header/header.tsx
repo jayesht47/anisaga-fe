@@ -22,10 +22,14 @@ export default function Header() {
     logout();
   };
 
+  const logoClickHandler = () => {
+    router.push("/");
+  }
+
   return (
     <header>
       <div className="flex justify-between">
-        <div className="justify-self-start m-6 text-5xl ">AniSaga</div>
+        <div className="justify-self-start m-6 text-5xl select-none hover:cursor-pointer" onClick={logoClickHandler}>AniSaga</div>
         <div className="justify-self-end">
           <Button
             className="m-6 text-2xl"
