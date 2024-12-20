@@ -42,3 +42,14 @@ export type AuthResponse = {
   message: string;
   token: string;
 };
+
+export type Anime = {
+    slug:string;
+    name:string;
+    synopsis:string;
+    averageRating:string;
+    startDate:string;
+    endDate:string;
+    episodeCount:string;
+    youtubeVideoId:string;
+}

@@ -23,6 +23,7 @@ export default function Header() {
   };
 
   const logoClickHandler = () => {
+    router.refresh();
     router.push("/");
   }
 

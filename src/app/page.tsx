@@ -1,3 +1,8 @@
+import { getTrendingAnimeList } from "./lib/anime-apis";
+
 export default function Page() {
-  return <main>This is main</main>;
+
+    const animeList = getTrendingAnimeList();
+
+    return <main>This is main</main>;
 }
