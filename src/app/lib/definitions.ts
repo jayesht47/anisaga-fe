@@ -52,4 +52,5 @@ export type Anime = {
     endDate:string;
     episodeCount:string;
     youtubeVideoId:string;
+    posterImage:string;
 }
