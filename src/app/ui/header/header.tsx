@@ -25,20 +25,27 @@ export default function Header() {
   const logoClickHandler = () => {
     router.refresh();
     router.push("/");
-  }
+  };
 
   return (
     <header>
       <div className="flex justify-between">
-        <div className="justify-self-start m-6 text-5xl select-none hover:cursor-pointer" onClick={logoClickHandler}>AniSaga</div>
+        <div
+          className="justify-self-start m-6 text-5xl select-none hover:cursor-pointer"
+          onClick={logoClickHandler}
+        >
+          AniSaga
+        </div>
         <div className="justify-self-end">
-          <Button
-            className="m-6 text-2xl"
-            type="button"
-            onClick={signupClickHandler}
-          >
-            Sign up
-          </Button>
+          {!authState && (
+            <Button
+              className="m-6 text-2xl"
+              type="button"
+              onClick={signupClickHandler}
+            >
+              Sign up
+            </Button>
+          )}
           {!authState && (
             <Button
               className="m-6 text-2xl"
