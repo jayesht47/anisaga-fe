@@ -4,13 +4,15 @@ import { decrypt } from "./app/lib/session-management";
 
 const publicRoutes = ["/signup", "/login", "/","/favicon.ico"];
 const privateRoutes = ["/dashboard"];
+const loginSignupPaths = ["/signup", "/login"]
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   const isPublicRoute = publicRoutes.includes(path);
   const isPrivateRoute = privateRoutes.includes(path);
+  const isLoginSignupPath = loginSignupPaths.includes(path);
 
-  if (isPublicRoute) return NextResponse.next(); //If it is a public page proceed to next without checking for session.
+  if (isPublicRoute && !isLoginSignupPath) return NextResponse.next(); //If it is a public page proceed to next without checking for session.
   const cookie = (await cookies()).get("session")?.value;
   const session = await decrypt(cookie);
 
@@ -18,7 +20,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/login", req.nextUrl));
   }
 
-  if (path === "/login" && session?.userName) {
+  if (isLoginSignupPath && session?.userName) {
     // user is already authenticated redirect to /dashboard
     return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
