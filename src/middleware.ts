@@ -2,9 +2,9 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "./app/lib/session-management";
 
-const publicRoutes = ["/signup", "/login", "/","/favicon.ico"];
+const publicRoutes = ["/signup", "/login", "/", "/favicon.ico"];
 const privateRoutes = ["/dashboard"];
-const loginSignupPaths = ["/signup", "/login"]
+const loginSignupPaths = ["/signup", "/login"];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -25,7 +25,11 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
   }
 
-  return NextResponse.next();
+  // setting current path name to use in server components
+  const headers = new Headers(req.headers);
+  headers.append("x-current-path", req.nextUrl.pathname);
+  console.log(`setting current path header as ${req.nextUrl.pathname}`);
+  return NextResponse.next({ headers });
 }
 
 // Routes Middleware should not run on

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Image } from "next/image";
 
 export type User = {
   userName: string;
@@ -43,14 +44,20 @@ export type AuthResponse = {
   token: string;
 };
 
+type AnimeImage = {
+  largePosterImage: string;
+  originalPosterImage: string;
+};
+
 export type Anime = {
-    slug:string;
-    name:string;
-    synopsis:string;
-    averageRating:string;
-    startDate:string;
-    endDate:string;
-    episodeCount:string;
-    youtubeVideoId:string;
-    posterImage:string;
-}
+  slug: string;
+  name: string;
+  synopsis: string;
+  averageRating: string;
+  startDate: string;
+  endDate: string;
+  episodeCount: string;
+  youtubeVideoId: string;
+  images: AnimeImage;
+  genres: [string] | undefined;
+};
