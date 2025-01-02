@@ -7,11 +7,11 @@ export default function Dashboard() {
   const { authState, setAuthState } = useContext(AuthContext);
 
   useEffect(() => {
-    const updateAuthState = async () => {
-      const newAuthState = await isLoggedIn();
+    console.log(`useEffect called`);
+    isLoggedIn().then((newAuthState) => {
+      console.log(`newAuthState is ${newAuthState}`);
       setAuthState(newAuthState);
-    };
-    updateAuthState();
+    });
   });
 
   return (

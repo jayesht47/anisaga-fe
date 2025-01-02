@@ -21,16 +21,16 @@ export default async function Anime(props: AnimeProps) {
           width={500}
         />
       </div>
-      <div className="flex-row w-2/3">
+      <div className="flex-row w-2/3 me-20">
         <div className="text-5xl my-2">{anime?.name}</div>
         <div className="my-2">
           <span className="text-xl">Synopsis</span>
           <hr className="my-1"></hr>
           {anime?.synopsis}
         </div>
+        <hr className="my-1"></hr>
         <div className="flex my-2">
           <div>Genres : </div>
-          <hr></hr>
           {anime?.genres?.map((genre, index) => {
             return (
               <div className="self-center	mx-1" key={genre}>
