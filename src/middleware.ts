@@ -27,10 +27,8 @@ export default async function middleware(req: NextRequest) {
 
   // setting current path name to use in server components
   const headers = new Headers(req.headers);
-  console.log(`req.headers is`);
   req.headers.forEach((e) => console.log(e));
   headers.append("x-current-path", req.nextUrl.pathname);
-  console.log(`setting current path header as ${req.nextUrl.pathname}`);
   return NextResponse.next({
     //headers, DONOT pass headers this way it breaks the server action responses see here https://github.com/vercel/next.js/issues/50659#issuecomment-2211256368
     request: {
