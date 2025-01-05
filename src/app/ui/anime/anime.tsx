@@ -1,5 +1,6 @@
 import { getAnimeBySlug } from "@/app/lib/anime-apis";
 import Image from "next/image";
+import Like from "./like";
 
 interface AnimeProps {
   readonly slug: string | undefined;
@@ -22,7 +23,10 @@ export default async function Anime(props: AnimeProps) {
         />
       </div>
       <div className="flex-row w-2/3 me-20">
-        <div className="text-5xl my-2">{anime?.name}</div>
+        <div className="text-5xl my-2 flex">
+          {anime?.name}
+          <Like />
+        </div>
         <div className="my-2">
           <span className="text-xl">Synopsis</span>
           <hr className="my-1"></hr>
