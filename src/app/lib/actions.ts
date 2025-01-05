@@ -55,7 +55,14 @@ export async function logout() {
 }
 
 export const isLoggedIn = async () => {
-  const cookie = (await cookies()).get("session")?.value;
-  const session = await decrypt(cookie);
-  return !!session;
+  try {
+    const cookie = (await cookies()).get("session")?.value;
+    if (cookie) {
+      const session = await decrypt(cookie);
+      return !!session;
+    } else return false;
+  } catch (e) {
+    console.error(`Exception occurred in isLoggedIn : ${e}`);
+    return false;
+  }
 };
