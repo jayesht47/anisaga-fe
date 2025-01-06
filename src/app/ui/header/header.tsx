@@ -2,13 +2,19 @@
 
 import { useRouter } from "next/navigation";
 import Button from "./button";
-import { logout } from "@/app/lib/actions";
-import { useContext } from "react";
-import { AuthContext } from "@/app/lib/auth-provider";
+import { isLoggedIn, logout } from "@/app/lib/actions";
+import { useEffect, useState } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const { authState } = useContext(AuthContext);
+  const [authState, setAuthState] = useState(false);
+
+  useEffect(() => {
+    const updateAuthState = async () => {
+      setAuthState(await isLoggedIn());
+    };
+    updateAuthState();
+  });
 
   const loginClickHandler = () => {
     router.push("/login");
