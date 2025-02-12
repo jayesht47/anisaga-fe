@@ -20,6 +20,10 @@ export default function Header() {
     router.push("/login");
   };
 
+  const DashboardClickHandler = () => {
+    router.push("/dashboard");
+  };
+
   const signupClickHandler = () => {
     router.push("/signup");
   };
@@ -59,6 +63,15 @@ export default function Header() {
               onClick={loginClickHandler}
             >
               Login
+            </Button>
+          )}
+          {authState && (
+            <Button
+              className="m-6 text-2xl"
+              type="button"
+              onClick={DashboardClickHandler}
+            >
+              Dashboard
             </Button>
           )}
           {authState && (
