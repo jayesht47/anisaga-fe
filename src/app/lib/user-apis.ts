@@ -51,7 +51,7 @@ export const loginUser = async (user: User) => {
     console.error(
       `receieved status ${
         response.status
-      } for register user for ${JSON.stringify(
+      } for login user for ${JSON.stringify(
         user
       )} response json was ${JSON.stringify(respObj)}`
     );
