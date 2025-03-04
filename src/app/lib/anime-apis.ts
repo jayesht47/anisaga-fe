@@ -191,3 +191,29 @@ export const removeFromLikes = async (slug: string | undefined) => {
     return false;
   }
 };
+
+export const getLikedAnimes = async () => {
+  try {
+    const hostName: string | undefined = process.env.SERVER_URL;
+    if (hostName == undefined) throw new Error("server url not configured!");
+    const cookie = (await cookies()).get("session")?.value;
+    const session = await decrypt(cookie);
+    const userName: string = session?.userName as string;
+    if (!userName) throw new Error("User session not valid!");
+    const token: string = session?.token as string;
+    const getLikesPath = `/users/user/${userName}/like/anime/list`;
+    const getLikesUrl = hostName + getLikesPath;
+    const headers: Headers = new Headers();
+    headers.set("Content-Type", "application/json");
+    headers.set("Authorization", `Bearer ${token}`);
+    const response = await fetch(getLikesUrl, {
+      headers,
+    });
+    if (response.ok) {
+      const respObj: [Anime] = await response.json();
+      return respObj;
+    }
+  } catch (e) {
+    console.error(`Exception occurred in getLikes ${e}`);
+  }
+};
